@@ -41,3 +41,10 @@ inventing semantics. If you feed one in, `parse` throws rather than guess.
 - The `node` field is 48 bits wide. Reading it with bitwise operators would
   silently truncate it to 32 bits — the implementation uses `Number()` instead,
   and exposes `node` as a safe integer.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
